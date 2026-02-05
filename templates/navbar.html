@@ -1,0 +1,30 @@
+<div style="width:100%; height:80px; padding:8px; margin:0; background-color:chartreuse; display: flex; justify-content: space-around; align-items: center;">
+    <a href="/" style="text-decoration: none;">
+        <span style="font-weight: 700; font-size:xx-large; cursor:pointer" >TPASTE</span>
+    </a>
+    {% if let Some(u) = username %}
+    
+    <form action="/logout" method="POST">
+        <button style="font-size:larger; 
+            padding: 10px; background-color: aquamarine; 
+            border:grey 2px solid; border-radius:10px; 
+            cursor: pointer;"
+            type="submit"
+        >
+        LOG OUT
+    </button>
+    </form> 
+    
+    {% else %}
+    <a href="/login">
+        <button style="font-size:larger; 
+        padding: 10px; background-color: aquamarine; 
+        border:grey 2px solid; border-radius:10px; 
+        cursor: pointer;"
+        >
+        SIGN IN
+        </button>
+    </a>
+    {% endif %}
+
+</div>

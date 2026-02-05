@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log in</title>
+    <style>
+        .continut{
+            position:absolute;
+            font-size:x-large;
+            left:50%;
+            top:50%;
+            transform: translate(-50%,-50%);
+        }
+        .formular{
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: center;
+            justify-content: center;
+        }
+        *{
+            padding:0;
+            margin:0;
+            box-sizing: border-box;
+        }
+        .input-field{
+            font-size: 20px;
+            border-radius: 10px;
+            border: solid grey;
+            padding: 4px;
+        }
+        .titlu{
+            font-size:50px;
+            margin-bottom: 1rem;
+            
+        }
+        .hidden{
+            display:none;
+        }
+    </style>
+</head>
+<body style="height: 100vh;">
+    
+    {% include "navbar.html" %}
+    <div class="continut">
+        <form class="formular">
+
+            <h2 class="titlu">
+                Sign In...
+            </h2>
+            <label for="username">Username</label>
+            <input name="username" type="text" class="input-field"/>
+            <label for="password">Password</label>
+            <input type="password" name="password" class="input-field" />
+            <button id="button-submit">
+                <input type="submit" value="Log In" class="input-field"/>
+            </button>
+            <span class="hidden" id="logging-in">Logging in...</span>
+            <span>
+                Don't have an account? <a href="/register">Register now!</a>
+            </span>
+            <span id="status-message"></span>
+        </form>
+    </div>
+    <script>
+        document.querySelector("form").addEventListener("submit",async(e)=>
+        {
+            e.preventDefault();
+            const mesaj=document.getElementById("status-message");
+
+            const credentials = {
+                username: e.target.querySelector("[name=\"username\"]").value,
+                password: e.target.querySelector("[name=\"password\"]").value,
+                client: "browser"
+            }
+            if (credentials.username.trim().length===0 || credentials.password.trim().length===0){
+                mesaj.innerText="Toate campurile trebuie completate!";
+                return;
+            }
+            const submitButton=document.getElementById("button-submit");
+            submitButton.classList.add("hidden");
+            const loggingIn=document.getElementById("logging-in");
+            loggingIn.classList.remove("hidden");
+            const res = await fetch ("/api/login",{
+                method: "POST",
+                body:JSON.stringify(credentials),
+                headers:{
+                    "content-type":"application/json"
+                },
+            });
+            submitButton.classList.remove("hidden");
+            loggingIn.classList.add("hidden");
+            
+            if (res.ok){
+                window.location.href = "/";
+                mesaj.innerText="You have logged in successfully!";
+            }
+            else if (res.status===404 || res.status===401){
+                mesaj.innerText="Username sau parola gresite";
+            }
+            else{
+                mesaj.innerText="Internal Server Error";
+            }
+        });
+    </script>
+</body>
+</html>

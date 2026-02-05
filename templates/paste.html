@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <style>
+        
+        *{
+            padding:0;
+            margin:0;
+            box-sizing: border-box;
+        }
+        main{
+            padding:30px 100px;
+        }
+        .title{
+            font-size:50px;
+            display:block;
+        }
+        .content{
+            font-size:25px;
+            display:block;
+            margin-top:30px;
+            white-space: pre-wrap;
+            word-wrap: break-word; 
+            font-family: monospace;
+        }
+        .timestamp{
+            margin: 16px 0px;
+            font-size:20px;
+            font-weight: 100;
+        }
+    </style>
+</head>
+<body>
+    {% include "navbar.html" %}
+
+    <main>
+        {% if let Some(e)=error %}
+        <strong class="title">
+            {{e}}
+        </strong>
+        {% else %}
+        <strong class="title">
+            {{title}}
+        </strong>
+        <span class="timestamp">Created at: {{ created_at }}</span>
+        <span  class="content">{{content}}</span>
+        {% endif %}
+    </main>
+</body>
+</html>

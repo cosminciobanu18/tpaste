@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <style>
+        .continut{
+            position:absolute;
+            font-size:x-large;
+            left:50%;
+            top:50%;
+            transform: translate(-50%,-50%);
+        }
+        .formular{
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            justify-content: center;
+            text-align: center;
+            align-items: center;
+        }
+        *{
+            padding:0;
+            margin:0;
+            box-sizing: border-box;
+        }
+        .input-field{
+            font-size: 20px;
+            border-radius: 10px;
+            border: solid grey;
+            padding: 4px;
+            display:block;
+        }
+        .titlu{
+            font-size:50px;
+            margin-bottom: 1rem;
+            
+        }
+        .hidden{
+            display:none;
+        }
+    </style>
+</head>
+<body style="height: 100vh;">
+    
+    {% include "navbar.html" %}
+    <div class="continut">
+        <form class="formular">
+            <h2 class="titlu">
+                Register
+            </h2>
+            <label for="username">Username</label>
+            <input name="username" type="text" class="input-field"/>
+            <label for="email">Email</label>
+        <input name="email" type="email" class="input-field"/>
+        <label for="password">Password</label>
+        <input type="password" name="password" class="input-field" />
+        <button id="button-submit">
+            <input type="submit" name="submit" value="Create account" class="input-field"/>
+        </button>
+        <span class="hidden" id="creating-account">Creating account...</span>
+        <span id="status-message"></span>
+    </form>
+</div>
+    <script>
+        document.querySelector("form").addEventListener("submit",async(e)=>
+        {
+            e.preventDefault();
+            const mesaj=document.getElementById("status-message");
+            const credentials = {
+                username: e.target.querySelector("[name=\"username\"]").value,
+                email: e.target.querySelector("[name=\"email\"]").value,
+                password: e.target.querySelector("[name=\"password\"]").value
+
+            }
+
+            if (!credentials.username || !credentials.password || !credentials.email){
+                mesaj.innerText="Toate campurile trebuie completate!";
+                return;
+            }
+
+            const submitButton=document.getElementById("button-submit");
+            submitButton.classList.add("hidden");
+            const loggingIn=document.getElementById("creating-account");
+            loggingIn.classList.remove("hidden");
+            const res = await fetch ("/api/register",{
+                method: "POST",
+                body:JSON.stringify(credentials),
+                headers:{
+                    "content-type":"application/json"
+                },
+                // credentials: "include"
+            });
+            submitButton.classList.remove("hidden");
+            loggingIn.classList.add("hidden");
+
+            if (res.ok){
+                mesaj.innerText="Account created successfully!";
+            }
+            else{
+                mesaj.innerText="Internal Server Error";
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pastes</title>
+    <style>
+        .centered-message{
+            position:absolute;
+            font-size:x-large;
+            left:50%;
+            top:50%;
+            transform: translate(-50%,-50%);
+            text-align: center;
+        }
+        *{
+            padding:0;
+            margin:0;
+            box-sizing: border-box;
+        }
+        li{
+            font-size:x-large;
+            text-decoration: inherit;
+            margin:4px;
+        }
+        
+        main{
+            padding:30px 100px;
+        }
+        h2{
+            font-size:xx-large;
+            margin-bottom:1rem;
+        }
+    </style>
+</head>
+<body>
+    {% include "navbar.html" %}
+
+    {% if let Some(e)=error %}
+    <strong class="centered-message">
+        {{e}}
+    </strong>
+    {% else %}
+        {% if let Some(user) = username %}
+        <main>
+            <h2>
+                {{ user }}'s pastes:
+            </h2>
+            <ul>
+                {% for paste in pastes %}
+                <li>
+                    <a href="/paste/{{paste.url}}">
+                        {{ paste.created_at }}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </main>
+      
+        {% endif %}
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,12 @@
+client 
+server 
+pv_key.pem 
+cert.pem
+README
+
+debug/
+target/
+*.pdb
+**/*.rs.bk
+cod_random.rs
+.env
