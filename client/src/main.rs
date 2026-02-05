@@ -1,13 +1,11 @@
 use anyhow::{Context, Result};
-use dotenv::dotenv;
 use reqwest::Certificate;
 use serde::Serialize;
 use std::{
     env, fs,
     io::{self, Read},
 };
-mod common;
-use crate::common::{LoginRequestBody, RegisterRequestBody};
+use tpaste_shared::{LoginRequestBody, RegisterRequestBody};
 
 fn parse_pair(args: &[String]) -> Option<(String, String)> {
     if args.len() <= 1 {
@@ -89,10 +87,10 @@ struct PasteRequest {
 }
 
 fn main() -> Result<()> {
-    dotenv().ok();
     let server_url = format!(
         "https://{}:3000",
-        env::var("SERVER_IP").context("SERVER_IP env variable is not set")?
+        // env::var("SERVER_IP").context("SERVER_IP env variable is not set")?
+        "tpaste.duckdns.org"
     );
     let args: Vec<String> = env::args().collect();
 

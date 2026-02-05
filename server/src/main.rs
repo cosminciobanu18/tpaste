@@ -25,8 +25,7 @@ use crate::{
 };
 mod helpers;
 use crate::helpers::generate_random_url;
-mod common;
-use crate::common::{LoginRequestBody, RegisterRequestBody};
+use tpaste_shared::{LoginRequestBody, RegisterRequestBody};
 mod model;
 mod template;
 

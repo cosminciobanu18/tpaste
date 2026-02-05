@@ -1,4 +1,3 @@
-use crate::common::Claims;
 use argon2::{
     Argon2, PasswordHash, PasswordVerifier,
     password_hash::{PasswordHasher, SaltString, rand_core::OsRng},
@@ -6,6 +5,7 @@ use argon2::{
 use chrono::{Duration, Utc};
 use jsonwebtoken::{DecodingKey, EncodingKey, Header, Validation, decode, encode};
 use rand::Rng;
+use tpaste_shared::Claims;
 pub fn generate_random_url() -> String {
     let chars: &[u8] = b"0987654321mnbvcxzasdfghjklpoiuytrewqMNBVCXZASDFGHJKLPOIUYTREWQ";
     let mut rng = rand::rng();
