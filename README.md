@@ -10,13 +10,13 @@
 
 ---
 
-## 📸 Screenshots
+## Screenshots
 
 | Login Page | Paste View | CLI Usage |
 |:---:|:---:|:---:|
 | ![Login UI](./screenshots/login.png) | ![Paste UI](./screenshots/paste.png) | ![CLI](./screenshots/cli.png) |
 
-## 🚀 Key Features
+## Key Features
 
 * **Full-Stack Rust:** Backend (`Axum`), SSR with Templating (`Askama`), and CLI tool (`Reqwest`) all written in Rust.
 * **End-to-End HTTPS:** TLS termination handled directly by the application using `rustls`.
@@ -25,7 +25,7 @@
     * **CLI:** Token-based authentication saved locally for seamless piping.
 * **Security First:** Passwords hashed with **Argon2**; SQL injection protection via **SQLx**.
 
-## ☁️ Infrastructure & Deployment
+## Infrastructure & Deployment
 
 This project supports two environments:
 
@@ -39,7 +39,7 @@ This project supports two environments:
     * **Networking:** Custom DNS Resolution using **DuckDNS** (`tpaste.duckdns.org`) and strict **HTTPS** enforced directly by the application (`rustls`).
     * *Note: The AWS environment is currently paused to optimize costs. The deployment process and infrastructure are fully implemented and can be brought online quickly.*
     
-## 🛠️ Architecture
+## Architecture
 
 ```mermaid
 graph TD
